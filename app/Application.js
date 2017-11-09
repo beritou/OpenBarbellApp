@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import { Provider } from 'react-redux';
+import { withNetworkConnectivity } from 'react-native-offline';
 
 import 'app/configs/ReactotronConfig';
 import Store from 'app/redux/Store';
@@ -29,13 +30,21 @@ Bluetooth(store);
 // set up app state listeners
 AppState(store);
 
+let App = () => (
+    <ApplicationScreen />
+);
+
+App = withNetworkConnectivity({
+    withRedux: true // It won't inject isConnected as a prop in this case
+})(App);
+
 // render
 class OBBApp extends Component {
 
     render() {
         return (
             <Provider store={store}>
-                <ApplicationScreen />
+                <App />
             </Provider>
         )
     }

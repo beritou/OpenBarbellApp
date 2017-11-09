@@ -117,6 +117,8 @@ export const logEventWithAppState = (event, params, state) => {
     
     // params.is_bluetooth_on = connectedDeviceStatus !== 'BLUETOOTH_OFF';
 
+    params.is_connected_to_internet = state.network.isConnected;
+
     params.is_workout_in_progress = !isWorkoutEmpty;
     
     logEvent(event, params);
